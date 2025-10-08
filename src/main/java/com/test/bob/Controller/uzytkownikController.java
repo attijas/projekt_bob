@@ -34,8 +34,26 @@ public class uzytkownikController {
         return ResponseEntity.ok("Dodano nowego uzytkownika");
         }
 
-        catch(Exception e){
+        catch(Exception e)
+        {
             e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Wystapil blad" + e.getMessage());
+        }
+    }
+
+    @PutMapping("/edytujuzytkownika")
+    public ResponseEntity <String> editUzytkownik(@RequestParam String login,
+                                                  @RequestParam String haslo,
+                                                  @RequestParam String email,
+                                                  @RequestParam String imie,
+                                                  @RequestParam String nazwisko,
+                                                  @RequestParam int    wiek,
+                                                  @RequestParam String status,
+                                                  @RequestParam String opis){
+        try{service.editUzytkownik(login, haslo, email, imie, nazwisko, wiek, status, opis);
+            return ResponseEntity.ok("Zedytowawno uzytkownika");
+    }
+        catch(Exception e){e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Wystapil blad" + e.getMessage());
         }
     }

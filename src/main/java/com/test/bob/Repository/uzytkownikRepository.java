@@ -26,4 +26,29 @@ public interface uzytkownikRepository extends CrudRepository<uzytkownik, Integer
                             @Param("wiek")int wiek,
                             @Param("status")String status,
                             @Param("opis")String opis);
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "update uzytkownik set login=COALESCE(:login,login), " +
+                                        "haslo=COALESCE(:haslo,haslo), " +
+                                        "email=COALESCE(:email,email), " +
+                                        "imie=COALESCE(:imie,imie), " +
+                                        "nazwisko=COALESCE(:nazwisko,nazwisko), " +
+                                        "wiek=COALESCE(:wiek,wiek), " +
+                                        "status=COALESCE(:status,status), " +
+                                        "opis=COALESCE(:opis,opis)" +
+                                        "WHERE login=:login",
+            nativeQuery = true)
+
+    void editUzytkownik(@Param("login")String login,
+                        @Param("haslo")String haslo,
+                        @Param("email")String email,
+                        @Param("imie")String imie,
+                        @Param("nazwisko")String nazwisko,
+                        @Param("wiek")int wiek,
+                        @Param("status")String status,
+                        @Param("opis")String opis);
 }
+
+

@@ -12,8 +12,8 @@ public class uzytkownikService {
     @Autowired
     private uzytkownikRepository repo;
 
-    public List<uzytkownik> findAllUzytkownik(){
-        List<uzytkownik> results=repo.findAllUzytkownik();
+    public List<uzytkownik> findAllUzytkownik() {
+        List<uzytkownik> results = repo.findAllUzytkownik();
         return results;
     }
 
@@ -23,11 +23,21 @@ public class uzytkownikService {
                                  String email,
                                  String imie,
                                  String nazwisko,
-                                 int    wiek,
+                                 int wiek,
                                  String status,
-                                 String opis)
-                                 {
+                                 String opis) {
         repo.addNewUzytkownik(login, haslo, email, imie, nazwisko, wiek, status, opis);
+    }
+
+    public void editUzytkownik(String login,
+                               String haslo,
+                               String email,
+                               String imie,
+                               String nazwisko,
+                               int wiek,
+                               String status,
+                               String opis){
+        repo.editUzytkownik(login, haslo, email, imie, nazwisko, wiek, status, opis);
     }
 
 }
