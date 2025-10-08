@@ -3,11 +3,10 @@ package com.test.bob.Controller;
 import com.test.bob.Entity.uzytkownik;
 import com.test.bob.Service.uzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -19,5 +18,25 @@ public class uzytkownikController {
     @GetMapping("/wildcard")
     public List<uzytkownik> wildcard(){
         return service.findAllUzytkownik();
+    }
+
+    @PostMapping("/rejestracja")
+    public ResponseEntity<?> addNewUzytkownik(     @RequestParam String login,
+                                                   @RequestParam String haslo,
+                                                   @RequestParam String email,
+                                                   @RequestParam String imie,
+                                                   @RequestParam String nazwisko,
+                                                   @RequestParam int    wiek,
+                                                   @RequestParam String status,
+                                                   @RequestParam String opis){
+
+        try {service.addNewUzytkownik(login, haslo, email, imie, nazwisko, wiek, status, opis);
+        return ResponseEntity.ok("Dodano nowego uzytkownika");
+        }
+
+        catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Wystapil blad" + e.getMessage());
+        }
     }
 }

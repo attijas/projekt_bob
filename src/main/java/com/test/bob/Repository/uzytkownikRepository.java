@@ -1,8 +1,11 @@
 package com.test.bob.Repository;
 
 import com.test.bob.Entity.uzytkownik;
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -10,4 +13,17 @@ public interface uzytkownikRepository extends CrudRepository<uzytkownik, Integer
 
     @Query(value="select * from uzytkownik", nativeQuery = true)
     List<uzytkownik> findAllUzytkownik();
+
+    @Transactional
+    @Modifying
+    @Query(value="insert into uzytkownik (login, haslo, email, imie, nazwisko, wiek, status, opis) " +
+            "values(:login, :haslo, :email, :imie, :nazwisko, :wiek, :status, :opis);", nativeQuery = true)
+    void addNewUzytkownik(@Param("login")String login,
+                          @Param("haslo")String haslo,
+                            @Param("email")String email,
+                            @Param("imie")String imie,
+                            @Param("nazwisko")String nazwisko,
+                            @Param("wiek")int wiek,
+                            @Param("status")String status,
+                            @Param("opis")String opis);
 }
