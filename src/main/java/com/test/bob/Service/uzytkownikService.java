@@ -1,11 +1,14 @@
 package com.test.bob.Service;
 
+import com.test.bob.DTO.UzytkownikDTO;
 import com.test.bob.Entity.uzytkownik;
 import com.test.bob.Repository.uzytkownikRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class uzytkownikService {
@@ -40,4 +43,14 @@ public class uzytkownikService {
         repo.editUzytkownik(login, haslo, email, imie, nazwisko, wiek, status, opis);
     }
 
+    public void deleteUzytkownik(String login){
+        repo.deleteUzytkownik(login);
+    }
+
+    public List<UzytkownikDTO>findAll(){
+        return StreamSupport.stream(repo.findAll().spliterator(), false)
+                .map(p->new UzytkownikDTO(p.getImie(), p.getNazwisko(), p.getStatus(), p.getOpis(),
+                        p.getId_dostepnosc(), p.getId_kategorii())).
+                        collect(Collectors.toList());
+    }
 }

@@ -49,6 +49,14 @@ public interface uzytkownikRepository extends CrudRepository<uzytkownik, Integer
                         @Param("wiek")int wiek,
                         @Param("status")String status,
                         @Param("opis")String opis);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM uzytkownik WHERE login=COALESCE(:login,login)", nativeQuery=true)
+    void deleteUzytkownik(@Param("login")String login);
+
+
+
 }
 
 
