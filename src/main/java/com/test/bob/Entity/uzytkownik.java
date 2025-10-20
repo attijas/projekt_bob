@@ -19,6 +19,7 @@ public class uzytkownik {
     private String nazwisko;
     private int wiek;
     private String Status;
+    @Column(name = "zdjecie",columnDefinition = "bytea",nullable = true)
     private byte[] zdjecie;
     private String opis;
     private Integer id_dostepnosc;

@@ -16,8 +16,8 @@ public interface uzytkownikRepository extends CrudRepository<uzytkownik, Integer
 
     @Transactional
     @Modifying
-    @Query(value="insert into uzytkownik (login, haslo, email, imie, nazwisko, wiek, status, opis) " +
-            "values(:login, :haslo, :email, :imie, :nazwisko, :wiek, :status, :opis);", nativeQuery = true)
+    @Query(value="insert into uzytkownik (login, haslo, email, imie, nazwisko, wiek, status, zdjecie, opis) " +
+            "values(:login, :haslo, :email, :imie, :nazwisko, :wiek, :status, :zdjecie, :opis);", nativeQuery = true)
     void addNewUzytkownik(@Param("login")String login,
                           @Param("haslo")String haslo,
                             @Param("email")String email,
@@ -25,6 +25,7 @@ public interface uzytkownikRepository extends CrudRepository<uzytkownik, Integer
                             @Param("nazwisko")String nazwisko,
                             @Param("wiek")int wiek,
                             @Param("status")String status,
+                            @Param("zdjecie")byte[] zdjecie,
                             @Param("opis")String opis);
 
 

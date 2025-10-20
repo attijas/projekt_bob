@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,12 @@ public class uzytkownikController {
                                               @RequestParam String nazwisko,
                                               @RequestParam int wiek,
                                               @RequestParam String status,
+                                              @RequestParam MultipartFile zdjecie,
                                               @RequestParam String opis) {
 
         try {
-            service.addNewUzytkownik(login, haslo, email, imie, nazwisko, wiek, status, opis);
+            byte[]zdj=zdjecie.getBytes();
+            service.addNewUzytkownik(login, haslo, email, imie, nazwisko, wiek, status, zdj, opis);
             return ResponseEntity.ok("Dodano nowego uzytkownika");
         } catch (Exception e) {
             e.printStackTrace();

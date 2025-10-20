@@ -28,8 +28,9 @@ public class uzytkownikService {
                                  String nazwisko,
                                  int wiek,
                                  String status,
+                                 byte[] zdjecie,
                                  String opis) {
-        repo.addNewUzytkownik(login, haslo, email, imie, nazwisko, wiek, status, opis);
+        repo.addNewUzytkownik(login, haslo, email, imie, nazwisko, wiek, status, zdjecie, opis);
     }
 
     public void editUzytkownik(String login,
