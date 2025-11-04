@@ -1,0 +1,1 @@
+Projekt Bob to makieta aplikacji umożliwiającej zatrudnianie fachowców od prac remontowo-wykończeniowych. Obecna funkcjonalność obejmuje możliwość dodawania, usuwania oraz edytowania użytkowników, a także wyświetlania ich listy.
