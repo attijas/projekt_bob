@@ -7,6 +7,7 @@ import com.test.bob.Repository.registerRepository;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class authService {
@@ -25,14 +26,16 @@ public class authService {
 
         user.setLogin(dto.getLogin());
         user.setEmail(dto.getEmail());
-        user.setHaslo(dto.getHaslo());
+        user.setHaslo(passwordEncoder.encode(dto.getHaslo()));
         user.setImie(dto.getImie());
         user.setNazwisko(dto.getNazwisko());
         user.setStatus(dto.getStatus());
         user.setWiek(dto.getWiek());
         user.setZdjecie(dto.getZdjecie());
-        uzytkownik saved = registerRepository.save(user)
+        uzytkownik saved = repository.save(user);
         UserResponseDTO response = new UserResponseDTO();
+
+        return response;
     }
 }
 

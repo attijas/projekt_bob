@@ -15,7 +15,7 @@ public class RegisterDTO {
     private String email;
     private String imie;
     private String nazwisko;
-    private String Status;
+    private String status;
     private int wiek;
     private byte[] zdjecie;
 }

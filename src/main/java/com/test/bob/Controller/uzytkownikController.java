@@ -1,13 +1,14 @@
 package com.test.bob.Controller;
 
+import com.test.bob.DTO.RegisterDTO;
 import com.test.bob.DTO.UzytkownikDTO;
 import com.test.bob.Entity.uzytkownik;
+import com.test.bob.Service.authService;
 import com.test.bob.Service.uzytkownikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +16,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/uzytkownicy")
 
+@CrossOrigin(origins = "http://127.0.0.1:5500")
+
 public class uzytkownikController {
     @Autowired
     private uzytkownikService service;
+    @Autowired
+    private authService authService;
 
     @GetMapping("/wildcard")
     public List<uzytkownik> wildcard() {
         return service.findAllUzytkownik();
     }
 
+    /* obsolete
     @PostMapping("/rejestracja")
     public ResponseEntity<?> addNewUzytkownik(@RequestParam String login,
                                               @RequestParam String haslo,
@@ -44,6 +50,8 @@ public class uzytkownikController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Wystapil blad" + e.getMessage());
         }
     }
+
+     */
 
     @PutMapping("/edytujuzytkownika")
     public ResponseEntity<String> editUzytkownik(@RequestParam String login,
@@ -82,6 +90,15 @@ public class uzytkownikController {
         }catch  (Exception e){
             e.printStackTrace();
             return new ArrayList<>();
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterDTO dto) {
+        try {
+            return ResponseEntity.ok(authService.register(dto));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Błąd: " + e.getMessage());
         }
     }
 }

@@ -1,13 +1,14 @@
 package com.test.bob.Repository;
 
 import com.test.bob.DTO.RegisterDTO;
+import com.test.bob.Entity.uzytkownik;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface registerRepository extends JpaRepository<RegisterDTO, Integer > {
+public interface registerRepository extends JpaRepository<uzytkownik, Long> {
     @Transactional
     @Modifying
     @Query(value="insert into uzytkownik (login, haslo, email, imie, nazwisko, wiek, status, zdjecie, opis) " +
