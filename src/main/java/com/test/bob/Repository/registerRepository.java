@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface registerRepository extends JpaRepository<uzytkownik, Long> {
     @Transactional
     @Modifying
@@ -38,5 +40,6 @@ public interface registerRepository extends JpaRepository<uzytkownik, Long> {
     boolean existsByLogin(String login);
     boolean existsByEmail(String email);
 
+    Optional<uzytkownik> findByLoginOrEmail(String login, String haslo);
 
 }
